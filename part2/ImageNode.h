@@ -10,6 +10,7 @@
 typedef struct segNode{
     int n;
     int id {return n;}
+    SegNode(int n) : n(n) {}
 } *SegNode;
 
 class ImageNode {

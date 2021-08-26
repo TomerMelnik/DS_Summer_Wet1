@@ -3,11 +3,12 @@
 //
 #include "ImageNode.h"
 
-ImageNode::ImageNode(int imageID, int segNum) : imageID(imageID), segNum(segNum) {
+ImageNode::ImageNode(int imageID, int segNum) : imageID(imageID) {
     this.segments = new int[segNum];
     for(int i=0; i<segNum;i++)
     {
         segments[i] = 0;
+
         uninitSegments.insertEnd(i);
     }
 }
