@@ -31,6 +31,8 @@ public:
 
     void getAllSegmentsByLabel(int label, int **images, int **segments, int *numOfSegments);
 
+    ~ImageTagger();
+
 
 };
 

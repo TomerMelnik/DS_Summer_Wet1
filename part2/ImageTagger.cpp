@@ -22,3 +22,8 @@ void ImageTagger::getLabel(int imageID, int segmentID, int *label) {
    *label = im->getLabel(segmentID);
 
 }
+
+ImageTagger::~ImageTagger() {
+   delete imageTree;
+
+}
