@@ -16,8 +16,9 @@ ImageNode::ImageNode(int imageID, int segNum) : imageID(imageID) {
 void ImageNode::addLabel(int label, int segment) {
     if (!this.segments[i])
     {
-        throw FAILURE;
+        throw new Failure;
     }
     this.segments[i] = label;
+
 
 }
