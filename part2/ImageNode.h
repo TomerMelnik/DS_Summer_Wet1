@@ -19,7 +19,7 @@ class ImageNode {
     LinkedList<SegNode> uninitSegments;
 public:
     ImageNode(int imageID, int segNum);
-    ~ImageNode();
+    ~ImageNode() = default;
     void addLabel(int label, int segment);
     void removeLabel(int label, int segment);
     void getAllSegmentsByLabel(int label, int** images, int** segments, int* numOfSegments);
