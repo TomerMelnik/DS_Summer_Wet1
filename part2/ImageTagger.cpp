@@ -43,5 +43,15 @@ void ImageTagger::deleteLabel(int imageID, int segmentID) {
     {
         throw new Failure();
     }
-    temp2->removeLabel()
+    temp2->deleteLabel(segmentID);
+}
+
+void ImageTagger::getAllSegmentsByLabel(int label, int **images, int **segments, int *numOfSegments) {
+    if(label <= 0 || !images || !segments || !numOfSegments)
+    {
+        throw new Invalid_Input();
+    }
+    *images = malloc(sizeof(int)*imageTree->numOfNodes*number_of_segments);
+    *segments = malloc(sizeof(int)*imageTree->numOfNodes*number_of_segments);
+
 }
