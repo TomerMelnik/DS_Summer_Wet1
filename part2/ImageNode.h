@@ -13,9 +13,7 @@
 
 typedef struct segNode{
     int n;
-    SegNode Next;
-
-    int id {return n;}
+    int id() {return n;}
     SegNode(int n) : n(n) {}
 } *SegNode;
 
@@ -26,14 +24,16 @@ class Invalid_Input: public std::exception{};
 class ImageNode {
     int imageID;
     int* segments;
+    int segNum;
     LinkedList<SegNode> uninitSegments;
 public:
     ImageNode(int imageID, int segNum);
     ~ImageNode() = default;
     void addLabel(int label, int segment);
     void removeLabel(int label, int segment);
+    void GetAllUnLabeledSegments(int** segments, int* numOfSegments);
     void getAllSegmentsByLabel(int label, int** images, int** segments, int* numOfSegments);
-    const int getLabel(int segment);
+    int getLabel(int segment);
     const int getImageID()
     {
         return imageID;

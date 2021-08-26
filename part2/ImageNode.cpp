@@ -3,7 +3,7 @@
 //
 #include "ImageNode.h"
 
-ImageNode::ImageNode(int imageID, int segNum) : imageID(imageID) {
+ImageNode::ImageNode(int imageID, int segNum) : imageID(imageID), segNum(segNum) {
     this.segments = new int[segNum];
     for(int i=0; i<segNum;i++)
     {
@@ -29,6 +29,27 @@ void ImageNode::removeLabel(int label, int segment) {
     }
     this->segments[segment] = 0;
     SegNode temp = new SegNode(segment);
-    uninitSegments.insertEnd(temp);
+    this->uninitSegments.insertEnd(temp);
 }
 
+int ImageNode::getLabel(int segment) {
+    if(!segments[segment])
+    {
+        throw new Failure();
+    }
+    return this->segments[segment];
+}
+void ImageNode::GetAllUnLabeledSegments(int **segments, int *numOfSegments) {
+    //TODO: do it in the list class
+}
+void ImageNode::getAllSegmentsByLabel(int label, int **images, int **segments, int *numOfSegments) {
+    for(int i = 0; i < this->segNum; i++)
+    {
+        if(segments[i] == label)
+        {
+            (*images)[numOfSegments] = this->imageID;
+            (*segments)[numOfSegments] = i;
+            (*numOfSegments)++;
+        }
+    }
+}

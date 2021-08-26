@@ -3,7 +3,7 @@
 //
 
 #include "library1.h"
-#include "LinkedList.h"
+#include "../part2/LinkedList.h"
 
 struct simple_node{
 int key;
