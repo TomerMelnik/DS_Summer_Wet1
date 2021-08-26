@@ -19,6 +19,4 @@ void ImageNode::addLabel(int label, int segment) {
         throw new Failure;
     }
     this.segments[i] = label;
-
-
 }
