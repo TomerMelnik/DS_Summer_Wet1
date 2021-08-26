@@ -6,9 +6,8 @@
 #define DS_SUMMER_WET1_LINKEDLIST_H
 
 #include <memory>
-#include "ListNode.h"
+#include <iostream>
 
-// TODO Check all pointer allocations
 /*
  * The Linked List utilises the ListNode class to supply the pointers between nodes
  *
@@ -17,11 +16,96 @@
  *
  */
 
+
+
+
+template<class U>
+class ListNode {
+    std::shared_ptr<ListNode> next;
+    std::shared_ptr<ListNode> previous;
+    U *data;
+
+    template<class T> friend
+    class LinkedList;
+
+    friend class CourseManager;
+
+public:
+    ListNode();
+
+    explicit ListNode(const U &node);
+
+    explicit ListNode(U *node);
+
+    ListNode(const ListNode &n);
+
+    ~ListNode();// Data is not deleted!
+    ListNode &operator=(const ListNode &n);
+
+    U *returnData();
+
+    template<class R>
+    friend std::ostream &operator<<(std::ostream &os, const ListNode<R> &n);
+
+
+};
+
+template<class U>
+ListNode<U>::ListNode() : next(nullptr), previous(nullptr), data(nullptr){
+}
+
+template<class U>
+ListNode<U>::ListNode(const U &node) : next(nullptr), previous(nullptr), data(new U(node)) //TODO delete memory
+{}
+
+
+template<class U>
+ListNode<U>::ListNode(U *node) : next(nullptr), previous(nullptr), data(node) //TODO delete memory
+{}
+
+template<class U>
+ListNode<U>::ListNode(const ListNode &n): next(n.next) , previous(n.previous), data(n.data) {
+
+}
+template<class U>
+ListNode<U>::~ListNode() {
+    if (data != nullptr)
+
+        next = nullptr;
+    previous = nullptr;
+    delete data;
+}
+template<class U>
+ListNode<U> &ListNode<U>::operator=(const ListNode &n) {
+
+    if (this == &n) {
+        return *this;
+    }
+
+    this->next = n.next;
+    this->previous = n.previous;
+    this->data = n.data;
+
+    return *this;
+
+}
+
+template<class U>
+U *ListNode<U>::returnData() {
+    return this->data;
+}
+
+template<class R>
+std::ostream &operator<<(std::ostream &os, const ListNode<R> &n) {
+    return os << n.data << std::endl;
+}
+
 template<class T>
 class LinkedList {
     std::shared_ptr<ListNode<T>> head;
     std::shared_ptr<ListNode<T>> tail;
 
+    int size;
 
     friend class CourseManager;
     friend class HashTable;
@@ -29,7 +113,7 @@ public:
     LinkedList();
 
     ~LinkedList();
-
+    int getSize(){ return size;}
     void insertFront(const T &input); //Inserts From the Front
     void insertFront(T *input);
     void insertEnd(const T &input);
@@ -65,12 +149,14 @@ LinkedList<T>::LinkedList() {
 
     tail->next = nullptr;
     tail->previous = head;
+
+    size = 0;
 }
 
 template<class T>
 void LinkedList<T>::insertFront(const T &input) {
     // assert(&input != NULL);
-
+    size++;
     std::shared_ptr<ListNode<T>> newNode = std::make_shared<ListNode<T>>(input);
 
     //Need to check if conversion does not cause problems
@@ -98,6 +184,7 @@ void LinkedList<T>::insertFront(const T &input) {
 template<class T>
 void LinkedList<T>::insertFront(T *input) {
     // assert(&input != NULL);
+    size++;
 
     std::shared_ptr<ListNode<T>> newNode = std::make_shared<ListNode<T>>(input);
 
@@ -282,14 +369,15 @@ void LinkedList<T>::remove(int key){
     auto temp = head->next;
 
     while (temp != tail) {
-        if (temp != head && temp->data->id() == key)
-        {
+        if (temp != head && temp->data->id() == key) {
             break;
         }
         temp = temp->next;
     }
+
     if(temp != head && temp != tail)
         removeAt(temp);
+    size--;
 }
 template<class T>
 LinkedList<T>::~LinkedList() {

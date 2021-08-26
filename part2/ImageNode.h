@@ -13,6 +13,8 @@
 
 typedef struct segNode{
     int n;
+    SegNode Next;
+
     int id {return n;}
     SegNode(int n) : n(n) {}
 } *SegNode;

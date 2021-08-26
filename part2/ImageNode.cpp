@@ -14,9 +14,21 @@ ImageNode::ImageNode(int imageID, int segNum) : imageID(imageID) {
 }
 
 void ImageNode::addLabel(int label, int segment) {
-    if (!this.segments[i])
+    if (this.segments[segment])
     {
-        throw new Failure;
+        throw new Failure();
     }
-    this.segments[i] = label;
+    this.segments[segment] = label;
+    uninitSegments.remove(segment);
 }
+
+void ImageNode::removeLabel(int label, int segment) {
+    if (!this.segments[segment])
+    {
+        throw new Failure();
+    }
+    this->segments[segment] = 0;
+    SegNode temp = new SegNode(segment);
+    uninitSegments.insertEnd(temp);
+}
+
