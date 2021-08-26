@@ -120,7 +120,7 @@ public:
 
 
     T *find( int key); //returns address to node if found, nullptr otherwise
-
+    T** toArray();
 
     //void remove(const T &); //The Node is simply removed from the list, not deleted
     void insertAt(std::shared_ptr<ListNode<T>> location,
@@ -408,6 +408,20 @@ os << "\t v " << std::endl;
 return os;
 }
 
+template<class T>
+T ** LinkedList<T>::toArray() {
+   if(this->size == 0) return nullptr;
+   T** array = new T*[size];
+    auto temp = head->next;
+    int i = 0;
+    while (temp != tail) {
+       array[i] = temp->data;
+        i++;
+        temp = temp->next;
+    }
+
+    return array;
+}
 
 
 #endif //DS_SUMMER_WET1_LINKEDLIST_H
