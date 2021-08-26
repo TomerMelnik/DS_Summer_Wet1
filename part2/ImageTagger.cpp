@@ -53,5 +53,5 @@ void ImageTagger::getAllSegmentsByLabel(int label, int **images, int **segments,
     }
     *images = malloc(sizeof(int)*imageTree->numOfNodes*number_of_segments);
     *segments = malloc(sizeof(int)*imageTree->numOfNodes*number_of_segments);
-
+    //TODO
 }
