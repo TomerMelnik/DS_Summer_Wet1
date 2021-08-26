@@ -10,13 +10,12 @@
 typedef struct segNode{
     int n;
     int id {return n;}
-} *segNode;
+} *SegNode;
 
 class ImageNode {
     int imageID;
     int* segments;
-    int segNum;
-    LinkedList<int> uninitSegments;
+    LinkedList<SegNode> uninitSegments;
 public:
     ImageNode(int imageID, int segNum);
     ~ImageNode();
