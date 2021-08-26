@@ -5,16 +5,24 @@
 #ifndef DS_SUMMER_WET1_IMAGENODE_H
 #define DS_SUMMER_WET1_IMAGENODE_H
 
+#include "library2.h"
+
+typedef struct segNode{
+    int n;
+    int id {return n;}
+} *segNode;
 
 class ImageNode {
     int imageID;
-    int* segements;
+    int* segments;
+    int segNum;
     LinkedList<int> uninitSegments;
 public:
-    ImageNode(int imageID, int snum);
+    ImageNode(int imageID, int segNum);
     ~ImageNode();
     void addLabel(int label, int segment);
-    void removeLabel(int label);
+    void removeLabel(int label, int segment);
+    void getAllSegmentsByLabel(int label, int** images, int** segments, int* numOfSegments);
     const int getLabel(int segment);
     const int getImageID()
     {

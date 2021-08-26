@@ -3,15 +3,19 @@
 //
 #include "ImageNode.h"
 
-ImageNode::ImageNode(int imageID, int snum) {
-    this.segements = new int[snum];
-    for(int i=0; i<snum;i++)
+ImageNode::ImageNode(int imageID, int segNum) : imageID(imageID), segNum(segNum) {
+    this.segments = new int[segNum];
+    for(int i=0; i<segNum;i++)
     {
-        segements[i] = 0;
+        segments[i] = 0;
         uninitSegments.insertEnd(i);
     }
 }
+ImageNode::~ImageNode() {
+    delete(segments);
 
-void ImageNode::addLabel(int label, int segment) {
+}
 
+StatusType ImageNode::addLabel(int label, int segment) {
+    if
 }
