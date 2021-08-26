@@ -282,12 +282,12 @@ void LinkedList<T>::remove(int key){
     auto temp = head->next;
 
     while (temp != tail) {
-        if (temp != head && temp->data->id() == key) {
+        if (temp != head && temp->data->id() == key)
+        {
             break;
         }
         temp = temp->next;
     }
-
     if(temp != head && temp != tail)
         removeAt(temp);
 }
