@@ -44,6 +44,9 @@ public:
     bool operator<(ImageNode* n){
         return this.imageID < n->getImageID();
     }
+    bool operator==(ImageNode* n){
+        return this->imageID == n->getImageID();
+    }
 };
 
 

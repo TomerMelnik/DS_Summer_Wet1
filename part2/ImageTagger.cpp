@@ -5,6 +5,14 @@
 
 
 void ImageTagger::addImage(int imageID) {
+    if(imageID <= 0)
+    {
+        throw new Invalid_Input();
+    }
     ImageNode* temp = new ImageNode(imageID, this->number_of_segments);
-    ImageTa
+    if(imageTree->find(temp&))
+    {
+        throw new Failure();
+    }
+    imageTree->insert(temp);
 }
