@@ -4,7 +4,7 @@ project(DataStructures1.1)
 set(CMAKE_CXX_STANDARD 11)
 
 #Part 1 List
-add_executable(ListTester LinkedList.h main1.cpp library1.h ListTester.cpp)
+#add_executable(ListTester LinkedList.h main1.cpp library1.h ListTester.cpp)
 #Part 1 Tree
 add_executable(TreeTester LinkedList.h main1.cpp library1.h TreeTester.cpp)
 

@@ -104,12 +104,12 @@ static void clearTree(Node<T> *node) {
 
 
 template <class T>
-Node<T> *findNode(Node<T> *node, T *key) {
+Node<T> *findNode(Node<T> *node, T& key) {
     if (node == NULL)
         return NULL;
-    if (*(key) < *(node->data))
+    if ((key) < *(node->data))
         return findNode(node->left, key);
-    if (*key > *(node->data))
+    if (key > *(node->data))
         return findNode(node->right, key);
     return node;
 }

@@ -9,7 +9,9 @@ struct simple_node{
 int key;
 void* value;
 int id(){return key;}
-
+bool operator<(simple_node sn){return key<sn.key;}
+bool operator>(simple_node sn){return key>sn.key;}
+bool operator==(simple_node sn){return key==sn.key;}
 };
 
 
@@ -42,7 +44,7 @@ StatusType Find(void *DS, int key, void** value){
     simple_node snt;
     snt.key=key;
     simple_node& ref= snt;
-    simple_node* sn =  ( ((AVLTree<simple_node>*) DS)->find(ref))->data;
+    simple_node* sn =  ( ((AVLTree<simple_node>*) DS)->find(snt))->data;
 
     if(sn == nullptr)
         return FAILURE;
