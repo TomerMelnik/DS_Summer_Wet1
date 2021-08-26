@@ -22,7 +22,7 @@ void ImageNode::addLabel(int label, int segment) {
     uninitSegments.remove(segment);
 }
 
-void ImageNode::removeLabel(int label, int segment) {
+void ImageNode::deleteLabel(int segment) {
     if (!this.segments[segment])
     {
         throw new Failure();

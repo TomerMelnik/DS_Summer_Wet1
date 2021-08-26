@@ -30,7 +30,7 @@ public:
     ImageNode(int imageID, int segNum);
     ~ImageNode() = default;
     void addLabel(int label, int segment);
-    void removeLabel(int label, int segment);
+    void deleteLabel(int segment);
     void GetAllUnLabeledSegments(int** segments, int* numOfSegments);
     void getAllSegmentsByLabel(int label, int** images, int** segments, int* numOfSegments);
     int getLabel(int segment);
