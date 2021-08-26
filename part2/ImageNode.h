@@ -6,11 +6,19 @@
 #define DS_SUMMER_WET1_IMAGENODE_H
 
 #include "library2.h"
+#include "LinkedList.h"
+#include <exception>
+
+
 
 typedef struct segNode{
     int n;
     int id {return n;}
 } *segNode;
+
+class Success: public std::exception{};
+class Failure: public std::exception{};
+class Invalid_Input: public std::exception{};
 
 class ImageNode {
     int imageID;
