@@ -12,11 +12,11 @@
 
 
 class ImageTagger {
-    AVLTree<ImageNode> *imageTagger;
+    AVLTree<ImageNode> *imageTree;
     int number_of_segments;
 
 public:
-     ImageTagger(int segnum);
+    ImageTagger(int segnum);
     void addImage(int imageID);
     void deleteImage(int imageID);
     void addLabel(int imageID,int segmentID,int label);
@@ -24,8 +24,6 @@ public:
     void deleteLabel(int imageID,int segmentID);
     void getAllUnLabeledSegments(int imageID,int** segments,int* numOfSegments);
     void getAllSegmentsByLabel(int label,int** images,int** segments,int* numOfSegments);
-
-
 };
 
 
