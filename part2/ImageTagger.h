@@ -14,6 +14,7 @@
 class ImageTagger {
     AVLTree<ImageNode> *imageTree;
     int number_of_segments;
+    void getAllSegmentsByLabelRec(Node<ImageNode>* current, int label, int** images, int**segments, int* numOfSegments);
 
 public:
     ImageTagger(int segnum);
