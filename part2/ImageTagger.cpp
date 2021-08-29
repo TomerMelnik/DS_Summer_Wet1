@@ -11,7 +11,7 @@ void ImageTagger::addImage(int imageID) {
         throw new Invalid_Input();
     }
     ImageNode* temp = new ImageNode(imageID, this->number_of_segments);
-    if(imageTree->find(temp&))
+    if(imageTree->find(*temp))
     {
         throw new Failure();
     }
@@ -25,7 +25,7 @@ void ImageTagger::addLabel(int imageID, int segmentID, int label){
         throw new Invalid_Input();
     }
     ImageNode* temp = new ImageNode(imageID, this->number_of_segments);
-    ImageNode* temp2 = findNode(temp&);
+    ImageNode* temp2 = imageTree->find(*temp)->data;
     if(!temp2)
     {
         throw new Failure();
@@ -39,7 +39,7 @@ void ImageTagger::deleteLabel(int imageID, int segmentID) {
         throw new Invalid_Input();
     }
     ImageNode* temp = new ImageNode(imageID, this->number_of_segments);
-    ImageNode* temp2 = findNode(temp&);
+    ImageNode* temp2 = imageTree->find(*temp)->data;
     if(!temp2)
     {
         throw new Failure();
@@ -55,24 +55,24 @@ void ImageTagger::getAllSegmentsByLabel(int label, int **images, int **segments,
     *numOfSegments = 0;
     *images = (int*)malloc(sizeof(int)*imageTree->numOfNodes*number_of_segments);
     *segments = (int*)malloc(sizeof(int)*imageTree->numOfNodes*number_of_segments);
-    getAllSegmentsByLabelRec(imageTree->root, images, segments, numOfSegments);
+    getAllSegmentsByLabelRec(imageTree->root,label, images, segments, numOfSegments);
     if(!numOfSegments) {
         images = NULL;
         segments = NULL;
     }
     else
     {
-        *images = (int*)realloc((*images),sizeof(int)*numOfSegments);
-        *segments = (int*)realloc((*segments),sizeof(int)*numOfSegments);
+        *images = (int*)realloc((*images),sizeof(int) * (*numOfSegments));
+        *segments = (int*)realloc((*segments),sizeof(int)*(*numOfSegments));
     }
 }
 
 void ImageTagger::getAllSegmentsByLabelRec(Node<ImageNode>* current, int label, int **images, int **segments,
                                            int *numOfSegments) {
-    if(!currrent) return;
-    getAllSegmentsByLabelRec(current->left, images, segments, numOfSegments);
+    if(!current) return;
+    getAllSegmentsByLabelRec(current->left, label, images, segments, numOfSegments);
     current->data->getAllSegmentsByLabel(label, images, segments, numOfSegments);
-    getAllSegmentsByLabelRec(current->right, images, segments, numOfSegments);
+    getAllSegmentsByLabelRec(current->right, label, images, segments, numOfSegments);
 }
 void ImageTagger::deleteImage(int imageID) {
 
