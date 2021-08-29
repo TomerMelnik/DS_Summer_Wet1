@@ -419,7 +419,6 @@ T ** LinkedList<T>::toArray() {
         i++;
         temp = temp->next;
     }
-
     return array;
 }
 
