@@ -38,24 +38,34 @@ void ImageTagger::deleteLabel(int imageID, int segmentID) {
     {
         throw new Invalid_Input();
     }
-    ImageNode* temp = new ImageNode(imageID, this->number_of_segments);
-    ImageNode* temp2 = imageTree->find(*temp)->data;
-    if(!temp2)
-    {
+    ImageNode *temp = new ImageNode(imageID, this->number_of_segments);
+    ImageNode *temp2 = imageTree->find(temp)->data;
+    if (!temp2) {
         throw new Failure();
     }
     temp2->deleteLabel(segmentID);
 }
 
+void ImageTagger::getAllUnLabeledSegments(int imageID, int **segments, int *numOfSegments) {
+    if (imageID <= 0 || !segments || !numOfSegments) {
+        throw new Invalid_Input();
+    }
+    ImageNode *temp = new ImageNode(imageID, this->number_of_segments);
+    ImageNode *temp2 = imageTree->find(temp)->data;
+    if (!temp2) {
+        throw new Failure();
+    }
+    temp2->GetAllUnLabeledSegments(segments, numOfSegments);
+}
+
 void ImageTagger::getAllSegmentsByLabel(int label, int **images, int **segments, int *numOfSegments) {
-    if(label <= 0 || !images || !segments || !numOfSegments)
-    {
+    if (label <= 0 || !images || !segments || !numOfSegments) {
         throw new Invalid_Input();
     }
     *numOfSegments = 0;
-    *images = (int*)malloc(sizeof(int)*imageTree->numOfNodes*number_of_segments);
-    *segments = (int*)malloc(sizeof(int)*imageTree->numOfNodes*number_of_segments);
-    getAllSegmentsByLabelRec(imageTree->root,label, images, segments, numOfSegments);
+    *images = (int *) malloc(sizeof(int) * imageTree->numOfNodes * number_of_segments);
+    *segments = (int *) malloc(sizeof(int) * imageTree->numOfNodes * number_of_segments);
+    getAllSegmentsByLabelRec(imageTree->root, label, images, segments, numOfSegments);
     if(!numOfSegments) {
         images = NULL;
         segments = NULL;
@@ -95,5 +105,4 @@ void ImageTagger::getLabel(int imageID, int segmentID, int *label) {
 
 ImageTagger::~ImageTagger() {
    delete imageTree;
-
 }

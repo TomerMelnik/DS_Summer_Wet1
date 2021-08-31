@@ -25,7 +25,7 @@ class ImageNode {
     int imageID;
     int* segments;
     int segNum;
-    LinkedList<SegNode> uninitSegments;
+    LinkedList<SegNode> *uninitSegments;
 public:
     ImageNode(int imageID, int segNum);
     ~ImageNode() = default;

@@ -14,17 +14,28 @@
 class ImageTagger {
     AVLTree<ImageNode> *imageTree;
     int number_of_segments;
-    void getAllSegmentsByLabelRec(Node<ImageNode>* current, int label, int** images, int**segments, int* numOfSegments);
+
+    void
+    getAllSegmentsByLabelRec(Node<ImageNode> *current, int label, int **images, int **segments, int *numOfSegments);
 
 public:
-    ImageTagger(int segnum);
+    ImageTagger(int segnum) : number_of_segments(segnum) {
+        imageTree = new AVLTree<ImageNode>();
+    }
+
     void addImage(int imageID);
+
     void deleteImage(int imageID);
-    void addLabel(int imageID,int segmentID,int label);
-    void getLabel(int imageID,int segmentID,int* label);
-    void deleteLabel(int imageID,int segmentID);
-    void getAllUnLabeledSegments(int imageID,int** segments,int* numOfSegments);
-    void getAllSegmentsByLabel(int label,int** images,int** segments,int* numOfSegments);
+
+    void addLabel(int imageID, int segmentID, int label);
+
+    void getLabel(int imageID, int segmentID, int *label);
+
+    void deleteLabel(int imageID, int segmentID);
+
+    void getAllUnLabeledSegments(int imageID, int **segments, int *numOfSegments);
+
+    void getAllSegmentsByLabel(int label, int **images, int **segments, int *numOfSegments);
 };
 
 

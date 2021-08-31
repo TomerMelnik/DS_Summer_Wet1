@@ -5,12 +5,13 @@
 
 ImageNode::ImageNode(int imageID, int segNum) : imageID(imageID), segNum(segNum) {
     this.segments = new int[segNum];
-    for(int i=0; i<segNum;i++)
-    {
+    uninitSegments = new LinkedList<SegNode>();
+    for (int i = 0; i < segNum; i++) {
         segments[i] = 0;
         SegNode temp = new SegNode(i);
-        uninitSegments.insertEnd(temp);
     }
+    uninitSegments->insertEnd(temp);
+
 }
 
 void ImageNode::addLabel(int label, int segment) {
@@ -29,7 +30,7 @@ void ImageNode::deleteLabel(int segment) {
     }
     this->segments[segment] = 0;
     SegNode temp = new SegNode(segment);
-    this->uninitSegments.insertEnd(temp);
+    this->uninitSegments->insertEnd(temp);
 }
 
 int ImageNode::getLabel(int segment) {
@@ -40,7 +41,7 @@ int ImageNode::getLabel(int segment) {
     return this->segments[segment];
 }
 void ImageNode::GetAllUnLabeledSegments(int **segments, int *numOfSegments) {
-    //TODO: do it in the list class
+    segments = uninitSegments->toIDArray(numOfSegments);
 }
 void ImageNode::getAllSegmentsByLabel(int label, int **images, int **segments, int *numOfSegments) {
     for(int i = 0; i < this->segNum; i++)
