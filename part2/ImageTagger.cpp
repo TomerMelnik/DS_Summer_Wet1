@@ -8,12 +8,12 @@
 void ImageTagger::addImage(int imageID) {
     if(imageID <= 0)
     {
-        throw new Invalid_Input();
+        throw  Invalid_Input();
     }
     ImageNode* temp = new ImageNode(imageID, this->number_of_segments);
     if(imageTree->find(*temp))
     {
-        throw new Failure();
+        throw  Failure();
     }
     imageTree->insert(temp);
 }
@@ -22,45 +22,53 @@ void ImageTagger::addImage(int imageID) {
 void ImageTagger::addLabel(int imageID, int segmentID, int label){
     if(imageID <=0 || segmentID <=0 || segmentID >= this->number_of_segments || label <=0)
     {
-        throw new Invalid_Input();
+        throw Invalid_Input();
     }
     ImageNode* temp = new ImageNode(imageID, this->number_of_segments);
-    ImageNode* temp2 = imageTree->find(*temp)->data;
-    if(!temp2)
+
+    if(!imageTree->find(*temp))
     {
-        throw new Failure();
+        throw Failure();
     }
+    ImageNode* temp2 = imageTree->find(*temp)->data;
+    delete temp;
     temp2->addLabel(segmentID, label);
 }
 
 void ImageTagger::deleteLabel(int imageID, int segmentID) {
     if(imageID <=0 || segmentID <=0 || segmentID >= this->number_of_segments)
     {
-        throw new Invalid_Input();
+        throw Invalid_Input();
     }
     ImageNode *temp = new ImageNode(imageID, this->number_of_segments);
-    ImageNode *temp2 = imageTree->find(temp)->data;
-    if (!temp2) {
-        throw new Failure();
+
+    if (!imageTree->find(*temp)) {
+        throw Failure();
     }
+    ImageNode *temp2 = imageTree->find(*temp)->data;
+    delete temp;
     temp2->deleteLabel(segmentID);
 }
 
 void ImageTagger::getAllUnLabeledSegments(int imageID, int **segments, int *numOfSegments) {
     if (imageID <= 0 || !segments || !numOfSegments) {
-        throw new Invalid_Input();
+        throw Invalid_Input();
     }
     ImageNode *temp = new ImageNode(imageID, this->number_of_segments);
-    ImageNode *temp2 = imageTree->find(temp)->data;
-    if (!temp2) {
-        throw new Failure();
+
+
+
+    if (!imageTree->find(*temp)) {
+        throw Failure();
     }
+    ImageNode *temp2 = imageTree->find(*temp)->data;
     temp2->GetAllUnLabeledSegments(segments, numOfSegments);
+    delete temp;
 }
 
 void ImageTagger::getAllSegmentsByLabel(int label, int **images, int **segments, int *numOfSegments) {
     if (label <= 0 || !images || !segments || !numOfSegments) {
-        throw new Invalid_Input();
+        throw Invalid_Input();
     }
     *numOfSegments = 0;
     *images = (int *) malloc(sizeof(int) * imageTree->numOfNodes * number_of_segments);
@@ -86,18 +94,18 @@ void ImageTagger::getAllSegmentsByLabelRec(Node<ImageNode>* current, int label, 
 }
 void ImageTagger::deleteImage(int imageID) {
 
-    if(imageID <= 0) throw new Invalid_Input();
+    if(imageID <= 0) throw Invalid_Input();
      ImageNode imageNode =ImageNode(imageID,number_of_segments);
-     if(imageTree->find(imageNode)== nullptr) throw new Failure();
+     if(imageTree->find(imageNode)== nullptr) throw Failure();
 
      imageTree->remove(&imageNode);
 }
 
 void ImageTagger::getLabel(int imageID, int segmentID, int *label) {
-    if(imageID <= 0|| segmentID < 0 || segmentID>= number_of_segments || label == nullptr) throw new Invalid_Input();
+    if(imageID <= 0|| segmentID < 0 || segmentID>= number_of_segments || label == nullptr) throw  Invalid_Input();
     ImageNode imageNode = ImageNode(imageID,this->number_of_segments);
 
-    if(imageTree->find(imageNode)== nullptr) throw new Failure();
+    if(imageTree->find(imageNode)== nullptr) throw  Failure();
     ImageNode* im = imageTree->find(imageNode)->data;
    *label = im->getLabel(segmentID);
 

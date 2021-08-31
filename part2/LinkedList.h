@@ -212,7 +212,7 @@ void LinkedList<T>::insertFront(T *input) {
 
 template<class T>
 void LinkedList<T>::insertEnd(const T &input) {
-    assert(&input != NULL);
+    assert(&input != nullptr);
     std::shared_ptr<ListNode<T>> newNode = std::make_shared<ListNode<T>>(input);
     //Need to check if conversion does not cause problems
 
@@ -235,7 +235,7 @@ void LinkedList<T>::insertEnd(const T &input) {
 
 template<class T>
 void LinkedList<T>::insertEnd(T *input) {
-    assert(&input != NULL);
+  //  assert(&input != NULL);
     std::shared_ptr<ListNode<T>> newNode = std::make_shared<ListNode<T>>(input);
     //Need to check if conversion does not cause problems
 
@@ -416,7 +416,7 @@ int **LinkedList<T>::toIDArray(int *numOfItems) {
     auto temp = head->next;
     int i = 0;
     while (temp != tail) {
-        array[i] = temp->data->id();
+        *array[i] = temp->data->id();
         i++;
         temp = temp->next;
     }
