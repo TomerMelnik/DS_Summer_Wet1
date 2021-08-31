@@ -14,7 +14,7 @@
 /***************************************************************************/
 
 //Use VERBOSE for more detailed output
-//#define VERBOSE
+#define VERBOSE
 #define TIMING
 
 #include <assert.h>
@@ -22,6 +22,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <chrono>
 #include "library1.h"
 
 #ifdef __cplusplus
@@ -82,7 +83,7 @@ static errorType parser(const char* const command);
 #define ValidateRead(read_parameters,required_parameters,ErrorString,ErrorParams) \
 if ( (read_parameters)!=(required_parameters) ) { printf(ErrorString, ErrorParams); return error; }
 
-#define GET_TIME clock()
+#define GET_TIME std::chrono::steady_clock::now().time_since_epoch().count()
 static bool isInit = false;
 
 /***************************************************************************/

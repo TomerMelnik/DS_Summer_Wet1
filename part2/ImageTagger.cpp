@@ -106,3 +106,4 @@ void ImageTagger::getLabel(int imageID, int segmentID, int *label) {
 ImageTagger::~ImageTagger() {
    delete imageTree;
 }
+
