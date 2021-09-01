@@ -15,6 +15,7 @@
     int n;
     int id() {return n;}
     SegNode(int n) : n(n) {}
+    ~SegNode() = default;
 };
 
 class Success: public std::exception{};
@@ -28,7 +29,8 @@ class ImageNode {
     LinkedList<SegNode> *uninitSegments;
 public:
     ImageNode(int imageID, int segNum);
-    ~ImageNode() = default;
+
+    ~ImageNode();
     void addLabel(int label, int segment);
     void deleteLabel(int segment);
     void GetAllUnLabeledSegments(int** segments, int* numOfSegments);

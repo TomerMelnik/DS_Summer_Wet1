@@ -13,14 +13,16 @@ void ImageTagger::addImage(int imageID) {
     ImageNode* temp = new ImageNode(imageID, this->number_of_segments);
     if(imageTree->find(*temp))
     {
+        delete temp;
         throw  Failure();
     }
     imageTree->insert(temp);
+
 }
 
 
 void ImageTagger::addLabel(int imageID, int segmentID, int label){
-    if(imageID <=0 || segmentID <=0 || segmentID >= this->number_of_segments || label <=0)
+    if(imageID <=0 || segmentID <0 || segmentID >= this->number_of_segments || label <=0)
     {
         throw Invalid_Input();
     }
@@ -28,21 +30,25 @@ void ImageTagger::addLabel(int imageID, int segmentID, int label){
 
     if(!imageTree->find(*temp))
     {
+        delete temp;
         throw Failure();
     }
+
     ImageNode* temp2 = imageTree->find(*temp)->data;
-    delete temp;
     temp2->addLabel(segmentID, label);
+    delete temp;
+
 }
 
 void ImageTagger::deleteLabel(int imageID, int segmentID) {
-    if(imageID <=0 || segmentID <=0 || segmentID >= this->number_of_segments)
+    if(imageID <=0 || segmentID <0 || segmentID >= this->number_of_segments)
     {
         throw Invalid_Input();
     }
     ImageNode *temp = new ImageNode(imageID, this->number_of_segments);
 
     if (!imageTree->find(*temp)) {
+        delete temp;
         throw Failure();
     }
     ImageNode *temp2 = imageTree->find(*temp)->data;
@@ -56,9 +62,8 @@ void ImageTagger::getAllUnLabeledSegments(int imageID, int **segments, int *numO
     }
     ImageNode *temp = new ImageNode(imageID, this->number_of_segments);
 
-
-
     if (!imageTree->find(*temp)) {
+        delete temp;
         throw Failure();
     }
     ImageNode *temp2 = imageTree->find(*temp)->data;
@@ -74,7 +79,7 @@ void ImageTagger::getAllSegmentsByLabel(int label, int **images, int **segments,
     *images = (int *) malloc(sizeof(int) * imageTree->numOfNodes * number_of_segments);
     *segments = (int *) malloc(sizeof(int) * imageTree->numOfNodes * number_of_segments);
     getAllSegmentsByLabelRec(imageTree->root, label, images, segments, numOfSegments);
-    if(!numOfSegments) {
+    if(*numOfSegments==0) {
         images = NULL;
         segments = NULL;
     }

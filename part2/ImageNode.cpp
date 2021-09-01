@@ -15,13 +15,17 @@ ImageNode::ImageNode(int imageID, int segNum) : imageID(imageID), segNum(segNum)
 
 }
 
-void ImageNode::addLabel(int label, int segment) {
-    if (this->segments[segment] != 0)
+void ImageNode::addLabel(int segment, int label) {
+    if (segments[segment] != 0)
     {
+      //  std::cout<<"segment already labeled"<<std::endl;
+        std::cout<<this->segments[segment]<<std::endl;
         throw  Failure();
     }
     this->segments[segment] = label;
+    SegNode* temp = uninitSegments->find(segment);
     uninitSegments->remove(segment);
+    delete temp;
 }
 
 void ImageNode::deleteLabel(int segment) {
@@ -35,23 +39,27 @@ void ImageNode::deleteLabel(int segment) {
 }
 
 int ImageNode::getLabel(int segment) {
-    if(!segments[segment])
-    {
-        throw  Failure();
-    }
+    if(!segments[segment]) throw  Failure();
+
     return this->segments[segment];
 }
-void ImageNode::GetAllUnLabeledSegments(int **segments, int *numOfSegments) {
-    segments = uninitSegments->toIDArray(numOfSegments);
+void ImageNode:: GetAllUnLabeledSegments(int **segments, int *numOfSegments) {
+    *segments = uninitSegments->toIDArray(numOfSegments);
 }
 void ImageNode::getAllSegmentsByLabel(int label, int **images, int **segments, int *numOfSegments) {
     for(int i = 0; i < this->segNum; i++)
     {
-        if((*segments[i]) == label)
+        if((this->segments[i]) == label)
         {
             (*images)[*numOfSegments] = this->imageID;
             (*segments)[*numOfSegments] = i;
             (*numOfSegments)++;
         }
     }
+}
+
+ImageNode::~ImageNode()
+{
+//delete[] segments;
+//delete uninitSegments;
 }
