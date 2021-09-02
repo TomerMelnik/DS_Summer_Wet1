@@ -23,6 +23,8 @@ public:
         imageTree = new AVLTree<ImageNode>();
     }
 
+
+    ~ImageTagger();
     void addImage(int imageID);
 
     void deleteImage(int imageID);

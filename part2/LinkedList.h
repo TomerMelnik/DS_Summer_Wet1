@@ -120,7 +120,7 @@ public:
 
 
     T *find( int key); //returns address to node if found, nullptr otherwise
-    int **toIDArray(int *numOfItems);
+    int *toIDArray(int *numOfItems);
 
     //void remove(const T &); //The Node is simply removed from the list, not deleted
     void insertAt(std::shared_ptr<ListNode<T>> location,
@@ -212,7 +212,7 @@ void LinkedList<T>::insertFront(T *input) {
 
 template<class T>
 void LinkedList<T>::insertEnd(const T &input) {
-    assert(&input != NULL);
+    assert(&input != nullptr);
     std::shared_ptr<ListNode<T>> newNode = std::make_shared<ListNode<T>>(input);
     //Need to check if conversion does not cause problems
 
@@ -235,7 +235,7 @@ void LinkedList<T>::insertEnd(const T &input) {
 
 template<class T>
 void LinkedList<T>::insertEnd(T *input) {
-    assert(&input != NULL);
+  //  assert(&input != NULL);
     std::shared_ptr<ListNode<T>> newNode = std::make_shared<ListNode<T>>(input);
     //Need to check if conversion does not cause problems
 
@@ -252,7 +252,7 @@ void LinkedList<T>::insertEnd(T *input) {
         newNode->next = tail;
         temp->next = newNode;
     }
-
+    size++;
 }
 
 /*
@@ -375,9 +375,10 @@ void LinkedList<T>::remove(int key){
         temp = temp->next;
     }
 
-    if(temp != head && temp != tail)
+    if(temp != head && temp != tail) {
         removeAt(temp);
-    size--;
+        size--;
+    }
 }
 template<class T>
 LinkedList<T>::~LinkedList() {
@@ -409,10 +410,10 @@ return os;
 }
 
 template<class T>
-int **LinkedList<T>::toIDArray(int *numOfItems) {
+int *LinkedList<T>::toIDArray(int *numOfItems) {
     if (this->size == 0) return NULL;
     *numOfItems = size;
-    int **array = new int *[size];
+    int *array = new int [size];
     auto temp = head->next;
     int i = 0;
     while (temp != tail) {
@@ -420,6 +421,7 @@ int **LinkedList<T>::toIDArray(int *numOfItems) {
         i++;
         temp = temp->next;
     }
+    *numOfItems = size;
     return array;
 }
 

@@ -9,11 +9,14 @@
 #include "LinkedList.h"
 #include <exception>
 
-typedef struct segNode{
+
+
+ struct SegNode{
     int n;
     int id() {return n;}
     SegNode(int n) : n(n) {}
-} *SegNode;
+    ~SegNode() = default;
+};
 
 class Success: public std::exception{};
 class Failure: public std::exception{};
@@ -28,7 +31,6 @@ public:
     ImageNode(int imageID, int segNum);
 
     ~ImageNode();
-
     void addLabel(int label, int segment);
     void deleteLabel(int segment);
     void GetAllUnLabeledSegments(int** segments, int* numOfSegments);
@@ -38,14 +40,14 @@ public:
     {
         return imageID;
     }
-    bool operator>(ImageNode* n){
-        return this.imageID > n->getImageID();
+    bool operator>(ImageNode n){
+        return this->imageID > n.getImageID();
     }
-    bool operator<(ImageNode* n){
-        return this.imageID < n->getImageID();
+    bool operator<(ImageNode n){
+        return this->imageID < n.getImageID();
     }
-    bool operator==(ImageNode* n){
-        return this->imageID == n->getImageID();
+    bool operator==(ImageNode n){
+        return this->imageID == n.getImageID();
     }
 };
 
