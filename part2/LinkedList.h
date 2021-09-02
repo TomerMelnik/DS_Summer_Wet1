@@ -417,7 +417,7 @@ template<class T>
 int *LinkedList<T>::toIDArray(int *numOfItems) {
     if (this->size == 0) return NULL;
     *numOfItems = size;
-    int *array = new int [size];
+    int *array = (int *) malloc(sizeof(int) * size);
     auto temp = head->next;
     int i = 0;
     while (temp != tail) {
