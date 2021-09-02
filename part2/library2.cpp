@@ -92,7 +92,6 @@ StatusType GetAllSegmentsByLabel(void *DS, int label, int **images, int **segmen
     catch(Success &e) {return SUCCESS;}
     catch (Failure &e) { return FAILURE;}
     catch (Invalid_Input &e) { return INVALID_INPUT;}
-
 }
 
 void Quit(void** DS){
