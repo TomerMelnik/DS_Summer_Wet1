@@ -26,14 +26,18 @@ public:
 template <class T>
 class AVLTree {
 public:
-    Node<T>* root;
+    Node<T> *root;
     int numOfNodes;
+
     AVLTree<T>() : root(NULL), numOfNodes(0) {}
+
     ~AVLTree();
 
     void insert(T *data);
-    void remove(T *data);
-    Node<T>* find(T& key);
+
+    void remove(int key);
+
+    Node<T> *find(int key);
 
 };
 
@@ -67,15 +71,15 @@ AVLTree<T>::~AVLTree() {
 }
 
 template<class T>
-Node<T> *AVLTree<T>::find(T &key) {
+Node<T> *AVLTree<T>::find(int key) {
     return findNode(root, key);
 }
 
 
 template<class T>
-void AVLTree<T>::remove(T *data) {
+void AVLTree<T>::remove(int key) {
 
-    this->root = removeNode(this->root, data);
+    this->root = removeNode(this->root, key);
     numOfNodes--;
 }
 
@@ -101,15 +105,13 @@ static void clearTree(Node<T> *node) {
 }
 
 
-
-
-template <class T>
-Node<T> *findNode(Node<T> *node, T& key) {
+template<class T>
+Node<T> *findNode(Node<T> *node, int key) {
     if (node == NULL)
         return NULL;
-    if ((key) < *(node->data))
+    if (key < node->data->getID())
         return findNode(node->left, key);
-    if (key > *(node->data))
+    if (key > node->data->getID())
         return findNode(node->right, key);
     return node;
 }
@@ -249,16 +251,15 @@ rotateAux(Node<T> *curr_node, Node<T> *successor_father) // Dont ask me why but 
 }
 
 
-template <class T>
-static Node<T> *removeNode(Node<T> *root, T *data)
-{
+template<class T>
+static Node<T> *removeNode(Node<T> *root, int key) {
     if (root == NULL)
         return root;
 
-    if (*data < *(root->data))
+    if (key < node->data->getID())
         root->left = removeNode(root->left, data);
 
-    else if (*data > *(root->data))
+    else if (key > node->data->getID())
         root->right = removeNode(root->right, data);
 
     else //Remove Current Node
@@ -266,8 +267,7 @@ static Node<T> *removeNode(Node<T> *root, T *data)
         if (root->left == NULL || root->right == NULL) //one or fewer children
         {
             Node<T> *temp = root;
-            if (root->left != NULL)
-            {
+            if (root->left != NULL) {
                 root = root->left;
             }
             else

@@ -113,20 +113,24 @@ public:
     LinkedList();
 
     ~LinkedList();
-    int getSize(){ return size;}
+
+    int getSize() { return size; }
+
     void insertFront(const T &input); //Inserts From the Front
     void insertFront(T *input);
+
     void insertEnd(const T &input);
 
 
-    T *find( int key); //returns address to node if found, nullptr otherwise
+    T *find(int key); //returns address to node if found, nullptr otherwise
     int *toIDArray(int *numOfItems);
 
     //void remove(const T &); //The Node is simply removed from the list, not deleted
-    void insertAt(std::shared_ptr<ListNode<T>> location,
+    void insertAt(std::shared_ptr <ListNode<T>> location,
                   const T &input);  //TODO the list Does not know if the address supplied is part of the list, Up to the user to check its valid
 
-    void removeAt(std::shared_ptr<ListNode<T>> location);
+    void removeAt(std::shared_ptr <ListNode<T>> location);
+
     void remove(int);
 
     template<class R>

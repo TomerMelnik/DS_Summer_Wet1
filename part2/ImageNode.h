@@ -10,44 +10,57 @@
 #include <exception>
 
 
-
- struct SegNode{
+struct SegNode {
     int n;
-    int id() {return n;}
+
+    int id() { return n; }
+
     SegNode(int n) : n(n) {}
-    ~SegNode() = default;
 };
 
-class Success: public std::exception{};
-class Failure: public std::exception{};
-class Invalid_Input: public std::exception{};
+class Success : public std::exception {
+};
+
+class Failure : public std::exception {
+};
+
+class Invalid_Input : public std::exception {
+};
 
 class ImageNode {
     int imageID;
-    int* segments;
-    int segNum;
+    int *segments;
+    int number_of_seg;
     LinkedList<SegNode> *uninitSegments;
 public:
     ImageNode(int imageID, int segNum);
 
     ~ImageNode();
+
     void addLabel(int label, int segment);
+
     void deleteLabel(int segment);
-    void GetAllUnLabeledSegments(int** segments, int* numOfSegments);
-    void getAllSegmentsByLabel(int label, int** images, int** segments, int* numOfSegments);
+
+    void GetAllUnLabeledSegments(int **segments, int *numOfSegments);
+
+    void getAllSegmentsByLabel(int label, int **images, int **segments, int *numOfSegments);
+
     int getLabel(int segment);
-    const int getImageID()
-    {
+
+    const int getID() {
         return imageID;
     }
-    bool operator>(ImageNode n){
-        return this->imageID > n.getImageID();
+
+    bool operator>(ImageNode n) {
+        return this->imageID > n.getID();
     }
-    bool operator<(ImageNode n){
-        return this->imageID < n.getImageID();
+
+    bool operator<(ImageNode n) {
+        return this->imageID < n.getID();
     }
-    bool operator==(ImageNode n){
-        return this->imageID == n.getImageID();
+
+    bool operator==(ImageNode n) {
+        return this->imageID == n.getID();
     }
 };
 
