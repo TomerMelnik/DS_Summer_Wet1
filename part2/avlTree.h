@@ -176,9 +176,9 @@ static Node<T> *insertNode(Node<T> *root, T *data)
         Node<T> *node = new Node<T>(data);
         return node;
     }
-    if (*data < *(root->data))
+    if (data->getID() < root->data->getID())
         root->left = insertNode(root->left, data);
-    else if (*data > *(root->data))
+    else if (data->getID() > root->data->getID())
         root->right = insertNode(root->right, data);
     else
         return root;
