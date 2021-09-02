@@ -9,14 +9,17 @@ ImageNode::ImageNode(int imageID, int segNum) : imageID(imageID), segNum(segNum)
     for (int i = 0; i < segNum; i++) {
         segments[i] = 0;
         SegNode temp = new SegNode(i);
+        uninitSegments->insertEnd(temp);
     }
-    uninitSegments->insertEnd(temp);
+}
 
+ImageNode::~ImageNode() {
+    delete uninitSegments;
+    delete segments;
 }
 
 void ImageNode::addLabel(int label, int segment) {
-    if (this.segments[segment])
-    {
+    if (this.segments[segment]) {
         throw new Failure();
     }
     this.segments[segment] = label;

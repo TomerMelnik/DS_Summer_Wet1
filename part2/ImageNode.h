@@ -9,8 +9,6 @@
 #include "LinkedList.h"
 #include <exception>
 
-
-
 typedef struct segNode{
     int n;
     int id() {return n;}
@@ -28,7 +26,9 @@ class ImageNode {
     LinkedList<SegNode> *uninitSegments;
 public:
     ImageNode(int imageID, int segNum);
-    ~ImageNode() = default;
+
+    ~ImageNode();
+
     void addLabel(int label, int segment);
     void deleteLabel(int segment);
     void GetAllUnLabeledSegments(int** segments, int* numOfSegments);
