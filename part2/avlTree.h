@@ -256,11 +256,11 @@ static Node<T> *removeNode(Node<T> *root, int key) {
     if (root == NULL)
         return root;
 
-    if (key < node->data->getID())
-        root->left = removeNode(root->left, data);
+    if (key < root->data->getID())
+        root->left = removeNode(root->left, key);
 
-    else if (key > node->data->getID())
-        root->right = removeNode(root->right, data);
+    else if (key > root->data->getID())
+        root->right = removeNode(root->right, key);
 
     else //Remove Current Node
     {
@@ -269,8 +269,7 @@ static Node<T> *removeNode(Node<T> *root, int key) {
             Node<T> *temp = root;
             if (root->left != NULL) {
                 root = root->left;
-            }
-            else
+            } else
             {
                 root = root->right;
             }
